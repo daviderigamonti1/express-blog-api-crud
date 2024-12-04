@@ -1,0 +1,80 @@
+const posts = require("../data/post");
+
+function index(req, res) {
+    const postsName = req.query.name;
+    const counter = posts.length;
+    const response = {
+        conteggio: counter,
+        data: [...posts]
+    };
+
+    if (postsName) {
+        response.data = posts.filter((post) => post.titolo.toLowerCase().includes(postsName.toLowerCase())
+        );
+    }
+    res.json(response);
+};
+
+function show(req, res) {
+    const postId = parseInt(req.params.id);
+    const item = posts.find(item => item.id === postId);
+    if (item) {
+        res.json({
+            success: true,
+            item,
+        });
+    } else {
+        res.status(404);
+        res.json({
+            success: false,
+            message: "Il post non esiste",
+        });
+    }
+};
+
+function store(req, res) {
+    res.send("Creazione nuovo post");
+};
+
+function update(req, res) {
+    const postId = parseInt(req.params.id);
+    const item = posts.find(item => item.id === postId);
+    if (item) {
+        res.send(`Modifica integrale del post ${postId}`);
+    } else {
+        res.status(404);
+        res.json({
+            success: false,
+            message: "Il post non esiste",
+        });
+    }
+};
+
+function modify(req, res) {
+    const postId = parseInt(req.params.id);
+    const item = posts.find(item => item.id === postId);
+    if (item) {
+        res.send(`Modifica parziale del post ${postId}`);
+    } else {
+        res.status(404);
+        res.json({
+            success: false,
+            message: "Il post non esiste",
+        });
+    }
+};
+
+function destroy(req, res) {
+    const postId = parseInt(req.params.id);
+    const index = posts.findIndex(item => item.id === postId);
+    if (index !== -1) {
+        menubar.splice(index, 1);
+        res.sendStatus(204);
+    } else {
+        res.status(404);
+        res.json({
+            error: "404",
+            message: "Il post non esiste",
+        });
+    }
+};
