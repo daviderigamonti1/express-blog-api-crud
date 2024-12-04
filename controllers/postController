@@ -2,8 +2,10 @@ const posts = require("../data/post");
 
 function index(req, res) {
     const postsName = req.query.name;
+    const postsTag = req.query.tag;
     const counter = posts.length;
-    const response = {
+
+    let response = {
         conteggio: counter,
         data: [...posts]
     };
@@ -12,7 +14,12 @@ function index(req, res) {
         response.data = posts.filter((post) => post.titolo.toLowerCase().includes(postsName.toLowerCase())
         );
     }
+
+    if (postsTag) {
+        response.data = posts.filter((post) => post.tags.includes(postsTag.toLowerCase()));
+    }
     res.json(response);
+
 };
 
 function show(req, res) {
@@ -26,7 +33,7 @@ function show(req, res) {
     } else {
         res.status(404);
         res.json({
-            success: false,
+            error: "404",
             message: "Il post non esiste",
         });
     }
@@ -68,8 +75,9 @@ function destroy(req, res) {
     const postId = parseInt(req.params.id);
     const index = posts.findIndex(item => item.id === postId);
     if (index !== -1) {
-        menubar.splice(index, 1);
+        posts.splice(index, 1);
         res.sendStatus(204);
+        console.log(posts);
     } else {
         res.status(404);
         res.json({
