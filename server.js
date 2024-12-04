@@ -3,6 +3,7 @@ const PORT = 3000;
 const app = express();
 
 const postsRouter = require("./routers/posts");
+const usersRouter = require("./routers/users");
 
 app.use(express.static("public"));
 
@@ -11,6 +12,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/posts", postsRouter);
+app.use("/users", usersRouter);
 
 app.all("*", (req, res) => {
     res.status(404).send("<h1>Error 404 - Not Found !</h1>");

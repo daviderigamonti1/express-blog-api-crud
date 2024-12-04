@@ -2,11 +2,11 @@ const users = require("../data/user");
 
 function index(req, res) {
     const usersName = req.query.name;
-    const counter = posts.length;
+    const counter = users.length;
 
     let response = {
         conteggio: counter,
-        data: [...posts]
+        data: [...users]
     };
 
     if (usersName) {
@@ -67,7 +67,7 @@ function modify(req, res) {
 
 function destroy(req, res) {
     const userId = parseInt(req.params.id);
-    const index = posts.findIndex(item => item.id === userId);
+    const index = users.findIndex(item => item.id === userId);
     if (index !== -1) {
         users.splice(index, 1);
         res.sendStatus(204);
