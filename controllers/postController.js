@@ -1,4 +1,5 @@
 const posts = require("../data/post");
+const comments = require("../data/comments");
 
 function index(req, res) {
     const postsName = req.query.name;
@@ -25,7 +26,7 @@ function index(req, res) {
 function show(req, res) {
     const postId = parseInt(req.params.id);
     const item = posts.find(item => item.id === postId);
-    const itemComments = comments.filter((comment) => comment.post_id === postId);
+    const itemComments = comments.filter((comment) => comment.post_Id === postId);
     if (!item) {
         res.status(404).json({ error: "404", message: "Il post non esiste" });
     }
