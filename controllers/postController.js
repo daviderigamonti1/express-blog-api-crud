@@ -35,13 +35,22 @@ function show(req, res) {
 };
 
 function store(req, res) {
+    console.log(req.body);
     let newId = 0;
     for (let i = 0; i < posts.length; i++) {
         if (posts[i].id > newId) {
-            newId = posts[i];
+            newId = posts[i].id;
         }
     }
     newId += 1;
+    const newPost = {
+        id: newId,
+        titolo: req.body.titolo,
+        contenuto: req.body.contenuto,
+        tags: req.body.tags
+    };
+    posts.push(newPost);
+    res.status(201).json(newPost);
 };
 
 function update(req, res) {
