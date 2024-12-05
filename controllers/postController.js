@@ -60,12 +60,11 @@ function update(req, res) {
         res.status(404).json({ success: false, message: "Il post non esiste" });
         return;
     }
+    item.titolo = req.body.titolo;
+    item.contenuto = req.body.contenuto;
+    item.tags = req.body.tags;
 
-    item.name = req.body.name;
-    item.image = req.body.image;
-    item.ingredients = req.body.tags;
-
-    res.json(item);
+    res.json({ success: true, item });
 };
 
 function modify(req, res) {
