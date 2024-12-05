@@ -37,11 +37,12 @@ function store(req, res) {
     res.send("Aggiunta del nuovo utente");
 };
 
+
 function update(req, res) {
     const userId = parseInt(req.params.id);
     const item = users.find(item => item.id === userId);
     if (item) {
-        res.send(`Modifica integrale dell'utente ${userId}`);
+        res.send(`Modifica integrale dell'user ${userId}`);
     } else {
         res.status(404);
         res.json({
