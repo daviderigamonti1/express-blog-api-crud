@@ -97,4 +97,12 @@ function destroy(req, res) {
     }
 };
 
-module.exports = { index, show, store, update, modify, destroy };
+function errorsHandler(err, req, res, next) {
+    res.status(500).json({ errore: err.message });
+};
+
+function notFound(req, res, next) {
+    res.status(404).json({ error: "Not Found", message: "Pagina non trovata" });
+};
+
+module.exports = { index, show, store, update, modify, destroy, errorsHandler, notFound };
